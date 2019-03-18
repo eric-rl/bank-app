@@ -1,7 +1,10 @@
 package app.home;
 
+import app.Entities.Account;
 import app.Main;
 import app.account.AccountController;
+import app.db.DB;
+import app.db.Database;
 import app.transaction.TransactionController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +12,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeController {
+    Map<Integer, Account> accounts = new HashMap<>();
 
     @FXML
     void initialize(){
-        // load accounts from db using LoginController.user.getId() and display them
+        DB.getAccount("940330-5312");
+        System.out.println(DB.getAccount("940330-5312"));
+        DB.getMatchingUser("940330-5312", "hejhej123");
+        System.out.println(DB.getMatchingUser("940330-5312", "hejhej123"));
 
     }
 

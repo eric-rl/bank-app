@@ -24,7 +24,7 @@ public class LoginController {
     }
 
     void loadUser(){
-//        user = DB.getMatchingUser("Kalle", "abc123?");
+        user = DB.getMatchingUser("Kalle", "abc123?");
         // if null display error
         // else switchScene to Home
     }

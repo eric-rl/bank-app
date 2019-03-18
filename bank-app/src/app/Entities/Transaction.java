@@ -3,19 +3,36 @@ package app.Entities;
 
 import app.annotations.Column;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 public class Transaction {
     @Column
     private long id;
     @Column
+    private Timestamp date;
+    @Column
     private String message;
     @Column
-    private float amount;
+    private int sender;
     @Column
-    private LocalDate date;
+    private int receiver;
+    @Column
+    private float amount;
+
 
     public String getMessage() { return message; }
     public float getAmount() { return amount; }
-    public LocalDate getDate() { return date; }
+    public Timestamp getDate() { return date; }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", date=" + date +
+                ", message='" + message + '\'' +
+                ", sender=" + sender +
+                ", receiver=" + receiver +
+                ", amount=" + amount +
+                '}';
+    }
 }
