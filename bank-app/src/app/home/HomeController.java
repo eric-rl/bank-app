@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 
@@ -24,8 +23,6 @@ public class HomeController {
     List<Account> userAccounts = null;
 
     @FXML
-    Pane pane;
-    @FXML
     VBox accountsBox;
     private Object Account;
 
@@ -33,7 +30,7 @@ public class HomeController {
     void initialize(){
         name_label.setText("Välkommen " + LoginController.getUser().getFirst_name());
         generateAccounts();
-        System.out.println("user accounts" + userAccounts);
+        System.out.println("initialize home");
 
 
 
@@ -62,6 +59,7 @@ public class HomeController {
             });
         });
     }
+
 
 
     @FXML

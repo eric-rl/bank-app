@@ -3,6 +3,7 @@ package app.account;
 
 import app.Entities.Account;
 import app.Entities.Transaction;
+import app.Main;
 import app.db.DB;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -37,8 +39,6 @@ public class AccountController {
             transactionLabel.setMinSize(500, 40);
             transactionBox.getChildren().add(transactionLabel);
         });
-//        displayTransaction(transactions);
-        System.out.println("In generateTransaction" + DB.getTransactions(account.getNumber()));
     }
 
 
@@ -58,6 +58,20 @@ public class AccountController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void goToHomeController(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/home/home.fxml"));
+            Parent fxmlInstance = loader.load();
+            Scene scene = new Scene(fxmlInstance);
+            Main.stage.setScene(scene);
+            Main.stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void setAccount(long number) {
         account = DB.getAccount(number);
