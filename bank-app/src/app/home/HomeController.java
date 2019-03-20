@@ -34,13 +34,9 @@ public class HomeController {
         System.out.println(userAccounts);
 
         userAccounts.forEach(account -> {
-            try {
-                Account temp = (Account) account;
-                generateAccounts(temp.getAccountName());
+            Account temp = (Account) account;
+            generateAccounts(temp.getAccountName());
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         });
 //        System.out.println(userAccounts.get(0).getClass());
 
@@ -53,10 +49,18 @@ public class HomeController {
     }
 
     @FXML
-    void generateAccounts(Object account) throws IOException {
+    void generateAccounts(Object account) {
+
         Button accountBtn = new Button("" + account);
         accountBtn.setMinSize(500, 40);
         accountsBox.getChildren().add(accountBtn);
+            accountBtn.setOnAction(event -> {
+                try {
+                    goToAccount();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
     }
 
 
