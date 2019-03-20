@@ -16,8 +16,10 @@ public class TransactionController {
         System.out.println("initialize transaction");
     }
 
-    public void setTransaction(Transaction transaction) {
-        message.setText(transaction.getMessage());
+    public void setTransaction() {
+//        Transaction transaction = new Transaction();
+//        message.setText(transaction.getMessage());
+//        amount.setText(transaction.amountToString());
         // etc
         // etc
     }

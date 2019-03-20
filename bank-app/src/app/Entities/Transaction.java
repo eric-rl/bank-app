@@ -35,4 +35,14 @@ public class Transaction {
                 ", amount=" + amount +
                 '}';
     }
+
+    public String amountToString() {
+        return "Transaction{" +
+                "amount=" + amount +
+                '}';
+    }
+
+    public String idToString(){
+        return ""+id;
+    }
 }

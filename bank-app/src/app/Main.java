@@ -14,11 +14,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Database.getInstance();
+//        Database.getInstance();
         stage = primaryStage;
         // First FXML that should be displayed is the Login
         // after successful login you should get transferred to Home
-        Parent root = FXMLLoader.load(getClass().getResource("/app/home/home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/app/login/login.fxml"));
         primaryStage.setTitle("Bank app");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();

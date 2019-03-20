@@ -3,6 +3,9 @@ package app.Entities;
 
 import app.annotations.Column;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class User {
     @Column
     private long id;
@@ -28,4 +31,32 @@ public class User {
                 ", mail='" + mail + '\'' +
                 '}';
     }
+
+
+    public String nameToString() {
+        return "User{" +
+                "first_name='" + first_name + '\'' +
+                '}';
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public String getSocial_number() {
+        return social_number;
+    }
+
+    //    public User(ResultSet resultSet) {
+//        try {
+//            this.id = resultSet.getLong("id");
+//            this.first_name = resultSet.getString("first_name");
+//            this.last_name = resultSet.getString("last_name");
+//            this.social_number = resultSet.getString("social_number");
+//            this.password = resultSet.getString("password");
+//            this.mail = resultSet.getString("mail");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

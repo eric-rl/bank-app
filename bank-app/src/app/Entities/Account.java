@@ -26,4 +26,9 @@ public class Account {
                 ", owner='" + owner + '\'' +
                 '}';
     }
+
+
+    public String getAccountName() {
+        return name + " " + number;
+    }
 }

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.login.LoginController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.login.LoginController">
+   <children>
+      <Button fx:id="loginButton" layoutX="262.0" layoutY="244.0" mnemonicParsing="false" onAction="#loadUser" text="Logga in" />
+      <TextField fx:id="input_password" layoutX="214.0" layoutY="173.0" promptText="Lösenord" text="hejhej123" />
+      <TextField id="social_number" fx:id="input_social_number" layoutX="214.0" layoutY="118.0" promptText="Personnummer" text="940330-5312" />
+   </children>
 </AnchorPane>
