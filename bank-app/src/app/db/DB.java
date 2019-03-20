@@ -68,17 +68,6 @@ public abstract class DB {
         return accounts;
     }
 
-    public static Transaction getTransaction(long id) {
-        Transaction transactions = null;
-        PreparedStatement ps = prep("SELECT * FROM transaction WHERE id = ? ");
-        try {
-            ps.setLong(1, id);
-            transactions = (Transaction) new ObjectMapper<>(Transaction.class).mapOne(ps.executeQuery());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return transactions;
-    }
 
     public static User getMatchingUser(String social_number, String password) {
         User result = null;
@@ -93,20 +82,23 @@ public abstract class DB {
         return result; // return User;
     }
 
-/*
-        Example method with default parameters
-    public static List<Transaction> getTransactions(int accountId){ return getTransactions(accountId, 0, 10); }
-    public static List<Transaction> getTransactions(int accountId, int offset){ return getTransactions(accountId, offset, offset + 10); }
-    public static List<Transaction> getTransactions(int accountId, int offset, int limit){
-        List<Transaction> result = null;
-        PreparedStatement ps = prep("bla bla from transactions WHERE account-id = "+accountId+" OFFSET "+offset+" LIMIT "+limit);
+
+    public static List<?> getTransactions(long accountId){ return getTransactions(accountId, 0, 10); }
+    public static List<?> getTransactions(long accountId, int offset){ return getTransactions(accountId, offset, offset + 10); }
+    public static List<?> getTransactions(long accountId, int offset, int limit){
+        List<?> result = null;
+        PreparedStatement ps = prep("SELECT * FROM transaction WHERE sender = ? OR receiver = ? LIMIT ? OFFSET ?");
         try {
-            result = (List<Transaction>)new ObjectMapper<>(Transaction.class).map(ps.executeQuery());
+            ps.setLong(1, accountId);
+            ps.setLong(2, accountId);
+            ps.setInt(3, limit);
+            ps.setInt(4, offset);
+            result = new ObjectMapper<>(Transaction.class).map(ps.executeQuery());
         } catch (Exception e) { e.printStackTrace(); }
         return result; // return User;
     }
 
-*/
+
 
 
 }

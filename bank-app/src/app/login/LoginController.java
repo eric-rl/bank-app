@@ -32,7 +32,6 @@ public class LoginController {
     public void loadUser(){
 
         user = DB.getMatchingUser(input_social_number.getText(), input_password.getText());
-        System.out.println("hsjdgf");
 
         if(user == null) {
             System.out.println("Error");

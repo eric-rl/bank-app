@@ -1,7 +1,6 @@
 package app.home;
 
 import app.Entities.Account;
-import app.Entities.User;
 import app.Main;
 import app.account.AccountController;
 import app.db.DB;
@@ -21,8 +20,7 @@ import java.util.List;
 
 public class HomeController {
     public Label name_label;
-//    Map<Integer, Account> accounts = new HashMap<>();
-//    java.util.List<Object> userAccounts = null;
+
     List<Account> userAccounts = null;
 
     @FXML
@@ -34,8 +32,8 @@ public class HomeController {
     @FXML
     void initialize(){
         name_label.setText("Välkommen " + LoginController.getUser().getFirst_name());
-        System.out.println(userAccounts);
         generateAccounts();
+        System.out.println("user accounts" + userAccounts);
 
 
 
@@ -52,9 +50,9 @@ public class HomeController {
         userAccounts = (List<Account>)DB.getAccounts(LoginController.getUser().getSocial_number());
         userAccounts.forEach(account -> {
             Account = account;
-        Button accountBtn = new Button("" +account.getAccountName());
-        accountBtn.setMinSize(500, 40);
-        accountsBox.getChildren().add(accountBtn);
+            Button accountBtn = new Button("" +account.getAccountName());
+            accountBtn.setMinSize(500, 40);
+            accountsBox.getChildren().add(accountBtn);
             accountBtn.setOnAction(event -> {
                 try {
                     goToAccount(account.getNumber());

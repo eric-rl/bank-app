@@ -13,9 +13,9 @@ public class Transaction {
     @Column
     private String message;
     @Column
-    private int sender;
+    private long sender;
     @Column
-    private int receiver;
+    private long receiver;
     @Column
     private float amount;
 

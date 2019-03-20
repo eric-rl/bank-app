@@ -14,7 +14,7 @@
             <VBox fx:id="transactionBox" maxHeight="600.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
          </center>
          <left>
-            <Button mnemonicParsing="false" onAction="#clickLoadTransactions" text="Load Transactions" BorderPane.alignment="CENTER" />
+            <!--<Button mnemonicParsing="false" onAction="#clickLoadTransactions" text="Load Transactions" BorderPane.alignment="CENTER" />-->
          </left>
       </BorderPane>
    </children>
