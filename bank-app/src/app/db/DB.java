@@ -44,11 +44,11 @@ public abstract class DB {
         return Database.getInstance().prepareStatement(SQLQuery);
     }
 
-    public static Account getAccount(String owner) {
+    public static Account getAccount(Long accountNumber) {
         Account accounts = null;
-        PreparedStatement ps = prep("SELECT * FROM account WHERE owner = ? ");
+        PreparedStatement ps = prep("SELECT * FROM account WHERE number = ? ");
         try {
-            ps.setString(1, owner);
+            ps.setLong(1, accountNumber);
             accounts = (Account) new ObjectMapper<>(Account.class).mapOne(ps.executeQuery());
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,8 +56,8 @@ public abstract class DB {
         return accounts;
     }
 
-    public static List<Object> getAccounts(String owner) {
-        List<Object> accounts = null;
+    public static List<?> getAccounts(String owner) {
+        List<?> accounts = null;
         PreparedStatement ps = prep("SELECT * FROM account WHERE owner = ?");
         try {
             ps.setString(1, owner);

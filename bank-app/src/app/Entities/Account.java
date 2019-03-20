@@ -27,6 +27,9 @@ public class Account {
                 '}';
     }
 
+    public long getNumber() {
+        return number;
+    }
 
     public String getAccountName() {
         return name + " " + number;

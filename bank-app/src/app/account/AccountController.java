@@ -1,6 +1,8 @@
 package app.account;
 
 
+import app.Entities.Account;
+import app.db.DB;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class AccountController {
+    Account account;
 
     @FXML
     VBox transactionBox;
@@ -40,6 +43,10 @@ public class AccountController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setAccount(long number) {
+        account = DB.getAccount(number);
     }
 
     @FXML void clickLoadTransactions(Event e) { loadMoreTransactions(); }
