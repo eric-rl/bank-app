@@ -5,6 +5,7 @@ import app.Entities.Transaction;
 import app.Entities.User;
 import com.mysql.cj.protocol.Resultset;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -95,6 +96,24 @@ public abstract class DB {
             result = new ObjectMapper<>(Transaction.class).map(ps.executeQuery());
         } catch (Exception e) { e.printStackTrace(); }
         return result; // return User;
+    }
+
+    public static void moveMoney(String message, long sender, long receiver, float amount) {
+        CallableStatement stmt = null;
+        Transaction result = null;
+        try {
+            stmt = Database.getInstance().getConn().prepareCall("{call create_transaction(?,?,?,?)}");
+            stmt.setString(1, message);
+            stmt.setLong(2, sender);
+            stmt.setLong(3, receiver);
+            stmt.setFloat(4, amount);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 

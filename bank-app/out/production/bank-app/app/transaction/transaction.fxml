@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.transaction.TransactionController">
    <children>
-      <BorderPane />
+      <BorderPane maxHeight="600.0" maxWidth="800.0" />
       <HBox spacing="60.0" />
+      <Button mnemonicParsing="false" onAction="#goToHomeController" text="Hem" />
+      <Button layoutX="125.0" mnemonicParsing="false" text="Gå tillbaka" />
+      <Button layoutX="52.0" layoutY="209.0" mnemonicParsing="false" onAction="#moveMoney" text="Skicka pengar" />
+      <TextField fx:id="receiverinput" layoutX="21.0" layoutY="46.0" promptText="Mottagare" />
+      <TextField fx:id="senderinput" layoutX="21.0" layoutY="85.0" promptText="Avsändare" />
+      <TextField fx:id="messageinput" layoutX="21.0" layoutY="127.0" promptText="Meddelande" />
+      <TextField fx:id="amountinput" layoutX="21.0" layoutY="165.0" promptText="Summa" />
    </children>
 </AnchorPane>

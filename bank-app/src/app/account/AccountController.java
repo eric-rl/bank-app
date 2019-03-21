@@ -24,6 +24,8 @@ public class AccountController {
 
     @FXML
     VBox transactionBox;
+    @FXML
+    Button pay;
 
     @FXML
     private void initialize(){
@@ -59,12 +61,25 @@ public class AccountController {
         }
     }
 
-    @FXML
-    void goToHomeController(){
+
+    public void goToHomeController(){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/home/home.fxml"));
             Parent fxmlInstance = loader.load();
             Scene scene = new Scene(fxmlInstance);
+            Main.stage.setScene(scene);
+            Main.stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void goToTransactionController(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/transaction/transaction.fxml"));
+            Parent fxmlInstance = loader.load();
+            Scene scene = new Scene(fxmlInstance, 800, 600);
             Main.stage.setScene(scene);
             Main.stage.show();
         } catch (IOException e) {

@@ -31,14 +31,6 @@ public class HomeController {
         name_label.setText("Välkommen " + LoginController.getUser().getFirst_name());
         generateAccounts();
         System.out.println("initialize home");
-
-
-
-
-//        DB.getMatchingUser("940330-5312", "hejhej123");
-//        System.out.println(DB.getMatchingUser("940330-5312", "hejhej123"));
-//        System.out.println("Accounts" + DB.getAccounts( "940330-5312"));
-//        System.out.println(DB.getTransaction(4));
     }
 
     @FXML

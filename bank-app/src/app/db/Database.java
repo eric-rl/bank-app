@@ -14,6 +14,11 @@ public class Database {
     private Database() { connectToDb(); }
 
     final String connectionURL = "jdbc:mysql://localhost/bank?user=root&password=Walkman123";
+
+    public Connection getConn() {
+        return conn;
+    }
+
     private Connection conn = null;
     private HashMap<String, PreparedStatement> preparedStatements = new HashMap<>();
 

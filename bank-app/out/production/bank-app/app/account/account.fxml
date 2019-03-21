@@ -10,11 +10,12 @@
 
 <GridPane alignment="center" hgap="10" prefHeight="600.0" prefWidth="800.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.account.AccountController">
    <children>
-      <ScrollPane prefHeight="400.0" prefWidth="600.0" GridPane.rowIndex="1">
+      <ScrollPane prefHeight="400.0" prefWidth="600.0" GridPane.rowIndex="2">
          <content>
             <VBox fx:id="transactionBox" maxHeight="600.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
          </content>
       </ScrollPane>
+      <Button fx:id="pay" mnemonicParsing="false" onAction="#goToTransactionController" text="Betala med konto" />
       <Button fx:id="goToHomeButton" mnemonicParsing="false" onAction="#goToHomeController" text="Gå tillbaka" GridPane.rowIndex="1" />
 
    </children>
@@ -23,6 +24,7 @@
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints />
    </rowConstraints>
