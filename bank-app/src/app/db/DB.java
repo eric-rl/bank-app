@@ -99,8 +99,7 @@ public abstract class DB {
     }
 
     public static void moveMoney(String message, long sender, long receiver, float amount) {
-        CallableStatement stmt = null;
-        Transaction result = null;
+        CallableStatement stmt;
         try {
             stmt = Database.getInstance().getConn().prepareCall("{call create_transaction(?,?,?,?)}");
             stmt.setString(1, message);
@@ -108,12 +107,9 @@ public abstract class DB {
             stmt.setLong(3, receiver);
             stmt.setFloat(4, amount);
             stmt.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
 

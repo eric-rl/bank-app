@@ -25,6 +25,7 @@ public class HomeController {
     @FXML
     VBox accountsBox;
     private Object Account;
+    public
 
     @FXML
     void initialize(){
@@ -34,7 +35,7 @@ public class HomeController {
     }
 
     @FXML
-    void generateAccounts() {
+    public void generateAccounts() {
 
         userAccounts = (List<Account>)DB.getAccounts(LoginController.getUser().getSocial_number());
         userAccounts.forEach(account -> {
@@ -45,6 +46,7 @@ public class HomeController {
             accountBtn.setOnAction(event -> {
                 try {
                     goToAccount(account.getNumber());
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -55,7 +57,7 @@ public class HomeController {
 
 
     @FXML
-    void goToAccount(Long number) throws IOException {
+    public void goToAccount(Long number) throws IOException {
 
         FXMLLoader loader = new FXMLLoader( getClass().getResource( "/app/account/account.fxml" ) );
         Parent fxmlInstance = loader.load();

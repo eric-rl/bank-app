@@ -31,6 +31,11 @@ public class Account {
         return number;
     }
 
+
+    public String numbertoString() {
+        return ""+number;
+    }
+
     public String getAccountName() {
         return name + " " + number;
     }

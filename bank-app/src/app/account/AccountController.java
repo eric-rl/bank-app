@@ -5,6 +5,7 @@ import app.Entities.Account;
 import app.Entities.Transaction;
 import app.Main;
 import app.db.DB;
+import app.transaction.TransactionController;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -35,6 +36,7 @@ public class AccountController {
 
     void generateTransactions(){
         List<Transaction> transactions = (List<Transaction>) DB.getTransactions(account.getNumber());
+        System.out.println(account.getNumber());
         transactions.forEach(transaction -> {
             Transaction = transaction;
             Label transactionLabel = new Label("" + Transaction.toString());
@@ -80,6 +82,11 @@ public class AccountController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/transaction/transaction.fxml"));
             Parent fxmlInstance = loader.load();
             Scene scene = new Scene(fxmlInstance, 800, 600);
+            TransactionController transactionController = loader.getController();
+
+
+            // Make sure that you display "the correct account" based on which one you clicked on
+            transactionController.setAccount(account.getNumber());
             Main.stage.setScene(scene);
             Main.stage.show();
         } catch (IOException e) {

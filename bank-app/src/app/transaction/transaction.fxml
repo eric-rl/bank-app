@@ -14,7 +14,7 @@
       <Button layoutX="125.0" mnemonicParsing="false" text="Gå tillbaka" />
       <Button layoutX="52.0" layoutY="209.0" mnemonicParsing="false" onAction="#moveMoney" text="Skicka pengar" />
       <TextField fx:id="receiverInput" layoutX="21.0" layoutY="46.0" promptText="Mottagare" />
-      <TextField fx:id="senderInput" layoutX="21.0" layoutY="85.0" promptText="Avsändare" />
+      <TextField fx:id="senderInput" editable="false" layoutX="21.0" layoutY="85.0" promptText="Avsändare" />
       <TextField fx:id="messageInput" layoutX="21.0" layoutY="127.0" promptText="Meddelande" />
       <TextField fx:id="amountInput" layoutX="21.0" layoutY="165.0" promptText="Summa" />
    </children>
