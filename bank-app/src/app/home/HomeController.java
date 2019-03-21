@@ -12,10 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
-
 import java.io.IOException;
 import java.util.List;
-
 
 public class HomeController {
     public Label name_label;
@@ -35,7 +33,7 @@ public class HomeController {
     }
 
     @FXML
-    public void generateAccounts() {
+    void generateAccounts() {
 
         userAccounts = (List<Account>)DB.getAccounts(LoginController.getUser().getSocial_number());
         userAccounts.forEach(account -> {
@@ -46,7 +44,6 @@ public class HomeController {
             accountBtn.setOnAction(event -> {
                 try {
                     goToAccount(account.getNumber());
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -57,23 +54,14 @@ public class HomeController {
 
 
     @FXML
-    public void goToAccount(Long number) throws IOException {
-
+    void goToAccount(Long number) throws IOException {
         FXMLLoader loader = new FXMLLoader( getClass().getResource( "/app/account/account.fxml" ) );
         Parent fxmlInstance = loader.load();
         Scene scene = new Scene( fxmlInstance, 800, 600 );
-
         AccountController controller = loader.getController();
-
-
-        // Make sure that you display "the correct account" based on which one you clicked on
-            controller.setAccount(number);
-
-        // If you don't want to have/use the static variable Main.stage
-//        Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+        controller.setAccount(number);
         Main.stage.setScene(scene);
         Main.stage.show();
-
     }
 
 

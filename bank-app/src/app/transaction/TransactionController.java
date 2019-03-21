@@ -1,21 +1,14 @@
 package app.transaction;
 
-
 import app.Entities.Account;
-import app.Entities.Transaction;
-import app.Main;
 import app.account.AccountController;
-import app.home.HomeController;
+import app.login.LoginController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import app.db.DB;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.util.List;
 
 public class TransactionController {
@@ -27,20 +20,43 @@ public class TransactionController {
     TextField amountInput;
     @FXML
     TextField senderInput;
+    @FXML
+    ComboBox accountsBox;
 
-    Account account;
-
-
+    private Object Account;
+    Account thisAccount;
+    List<Account> userAccounts = null;
 
     @FXML
     private void initialize(){
         System.out.println("initialize transaction");
-        Platform.runLater(()->senderInput.setText(account.numbertoString()));
+        Platform.runLater(()-> senderInput.setText(thisAccount.numbertoString()));
+        Platform.runLater(()-> generateComboBox());
     }
 
     public void goToHomeController(){
         AccountController accountController = new AccountController();
         accountController.goToHomeController();
+    }
+
+    @FXML
+    void generateComboBox() {
+        userAccounts = (List<Account>)DB.getAccounts(LoginController.getUser().getSocial_number());
+        System.out.println(userAccounts);
+        userAccounts.forEach(account -> {
+            Account = account;
+            if (account.getNumber() != thisAccount.getNumber()) {
+            accountsBox.getItems().addAll(account.getAccountName());
+            } else {
+                System.out.println("Det fanns i listan");
+            }
+        });
+    }
+
+    @FXML
+    void setReceiverWithComboBox() {
+        String number = accountsBox.getValue().toString();
+        receiverInput.setText(number.substring(number.length() - 8));
     }
 
 
@@ -53,19 +69,7 @@ public class TransactionController {
         DB.moveMoney(message, sender, receiver, amount);
     }
 
-
-
-
-
-    public void setTransaction() {
-//        Transaction transaction = new Transaction();
-//        message.setText(transaction.getMessage());
-//        amount.setText(transaction.amountToString());
-        // etc
-        // etc
-    }
-
-    public void setAccount(long number) {
-        account = DB.getAccount(number);
+    public void setThisAccount(long number) {
+        thisAccount = DB.getAccount(number);
     }
 }

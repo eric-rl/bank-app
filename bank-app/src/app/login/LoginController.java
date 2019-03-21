@@ -19,8 +19,6 @@ public class LoginController {
     public TextField input_social_number;
     public TextField input_password;
     public Button loginButton;
-
-    // Use this in other Controllers to get "the currently logged in user".
     private static User user = null;
     public static User getUser() { return user; }
 
@@ -30,9 +28,7 @@ public class LoginController {
     }
 
     public void loadUser(){
-
         user = DB.getMatchingUser(input_social_number.getText(), input_password.getText());
-
         if(user == null) {
             System.out.println("Error");
         }

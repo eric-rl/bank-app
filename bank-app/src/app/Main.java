@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        Database.getInstance();
+        Database.getInstance();
         stage = primaryStage;
         // First FXML that should be displayed is the Login
         // after successful login you should get transferred to Home
