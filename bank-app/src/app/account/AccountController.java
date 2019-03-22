@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -21,18 +22,40 @@ public class AccountController {
     private Object Transaction;
 
     @FXML
+    Button cardPayment;
+    @FXML
+    Button salaryIncome;
+    @FXML
     VBox transactionBox;
     @FXML
     Button pay;
+    List<Transaction> transactions;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         System.out.println("initialize account");
+        Platform.runLater(() -> transactions = (List<Transaction>) DB.getTransactions(account.getNumber()));
         Platform.runLater(() -> generateTransactions());
+        Platform.runLater(() -> generateCardPaymentButton());
     }
 
-    void generateTransactions(){
-        List<Transaction> transactions = (List<Transaction>) DB.getTransactions(account.getNumber());
+
+    public void generateMore() {
+        transactions = (List<Transaction>) DB.getTransactions(account.getNumber(), 0, Integer.MAX_VALUE);
+        generateTransactions();
+    }
+
+    public void cardPayment() {
+        DB.moveMoney("Creditcard", account.getNumber(), 99999999, 200);
+    }
+
+    public void setSalaryIncome() {
+        System.out.println("Klickad");
+        DB.insertAccountIntoSalary(account.getNumber());
+    }
+
+    void generateTransactions() {
+        transactionBox.getChildren().clear();
         transactions.forEach(transaction -> {
             Transaction = transaction;
             Label transactionLabel = new Label("" + Transaction.toString());
@@ -41,8 +64,8 @@ public class AccountController {
         });
     }
 
-    public void goToHomeController(){
-        try{
+    public void goToHomeController() {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/home/home.fxml"));
             Parent fxmlInstance = loader.load();
             Scene scene = new Scene(fxmlInstance);
@@ -54,8 +77,20 @@ public class AccountController {
     }
 
     @FXML
-    void goToTransactionController(){
-        try{
+    void generateCardPaymentButton() {
+        if (account.getType().equals("Creditcard")) {
+            cardPayment.setVisible(true);
+        } else if (account.getType().equals("Salary")) {
+            salaryIncome.setVisible(true);
+        } else {
+            cardPayment.setVisible(false);
+            salaryIncome.setVisible(false);
+        }
+    }
+
+
+    public void goToTransactionController() {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/transaction/transaction.fxml"));
             Parent fxmlInstance = loader.load();
             Scene scene = new Scene(fxmlInstance, 800, 600);

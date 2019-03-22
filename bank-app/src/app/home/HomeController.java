@@ -9,9 +9,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +27,8 @@ public class HomeController {
 
     @FXML
     VBox accountsBox;
+    @FXML
+    Button addAccountButton;
     private Object Account;
     public
 
@@ -62,6 +69,30 @@ public class HomeController {
         controller.setAccount(number);
         Main.stage.setScene(scene);
         Main.stage.show();
+    }
+
+    @FXML
+    void addAccount() {
+        addAccountButton.setOnAction(event -> addAccountPrompt());
+    }
+
+    @FXML
+    void addAccountPrompt() {
+        Stage addAccount = new Stage();
+        addAccount.initModality(Modality.APPLICATION_MODAL);
+        addAccount.setTitle("Nytt Konto");
+        TextField nameInput = new TextField();
+        ComboBox type = new ComboBox();
+        type.getItems().addAll("Salary", "sad", "asda");
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(
+                nameInput,
+                type
+        );
+
+        Scene scene1 = new Scene(layout,300, 300);
+        
     }
 
 

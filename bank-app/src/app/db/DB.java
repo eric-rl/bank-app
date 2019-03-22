@@ -112,6 +112,16 @@ public abstract class DB {
         }
     }
 
+    public static void insertAccountIntoSalary(long receiverAccount) {
+        PreparedStatement ps = prep("INSERT INTO accounts_getting_salary SET number = ?");
+        try {
+            ps.setLong(1, receiverAccount);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

@@ -27,6 +27,10 @@ public class Account {
                 '}';
     }
 
+    public String getType() {
+        return type;
+    }
+
     public long getNumber() {
         return number;
     }
