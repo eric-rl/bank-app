@@ -58,8 +58,13 @@ public class AccountController {
         transactionBox.getChildren().clear();
         transactions.forEach(transaction -> {
             Transaction = transaction;
-            Label transactionLabel = new Label("" + Transaction.toString());
-            transactionLabel.setMinSize(500, 40);
+            Label transactionLabel = new Label(
+                    "Summa: " + ((Transaction) Transaction).amountToString() +
+                        " Avsändare: " + ((Transaction) Transaction).senderToString() +
+                          " Mottagare: " + ((Transaction) Transaction).receiverTostring() +
+                        " Meddelande: " + ((Transaction) Transaction).messageToString());
+
+            transactionLabel.setMinSize(100, 20);
             transactionBox.getChildren().add(transactionLabel);
         });
     }

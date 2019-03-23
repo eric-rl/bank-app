@@ -68,6 +68,39 @@ public abstract class DB {
         return accounts;
     }
 
+    public static void addAccount(String name, String type, String owner){
+        PreparedStatement ps = prep("INSERT INTO account SET name = ?, type = ?, owner = ?");
+        try {
+            ps.setString(1, name);
+            ps.setString(2, type);
+            ps.setString(3, owner);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteAccount(Long number) {
+        PreparedStatement ps = prep("DELETE FROM account WHERE number = ?");
+        try {
+            ps.setLong(1, number);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void changeAccountName(long number, String name) {
+        PreparedStatement ps = prep("UPDATE account SET name = ? WHERE number = ?");
+        try {
+            ps.setString(1, name);
+            ps.setLong(2,number);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static User getMatchingUser(String social_number, String password) {
         User result = null;

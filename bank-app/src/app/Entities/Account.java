@@ -31,6 +31,14 @@ public class Account {
         return type;
     }
 
+    public float getBalance() {
+        return balance;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public long getNumber() {
         return number;
     }

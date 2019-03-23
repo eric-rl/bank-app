@@ -37,10 +37,21 @@ public class Transaction {
     }
 
     public String amountToString() {
-        return "Transaction{" +
-                "amount=" + amount +
-                '}';
+        return ""+ amount;
     }
+    public String timeToString(){
+        return ""+ date;
+    }
+    public String messageToString(){
+        return ""+ message;
+    }
+    public String senderToString(){
+        return ""+ sender;
+    }
+    public String receiverTostring(){
+        return ""+ receiver;
+    }
+
 
     public String idToString(){
         return ""+id;
