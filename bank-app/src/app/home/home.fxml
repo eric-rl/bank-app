@@ -1,69 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" prefHeight="398.0" prefWidth="504.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.home.HomeController">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
-   <children>
-      <VBox GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
-         <children>
-            <ComboBox fx:id="accountType" prefWidth="150.0" promptText="Konto typ" />
-            <TextField fx:id="accountName" maxWidth="150.0" prefHeight="27.0" prefWidth="148.0" promptText="Namn på konto" />
-            <Button fx:id="addAccountButton" mnemonicParsing="false" onAction="#addAccount" prefHeight="27.0" prefWidth="150.0" text="Lägg till konto" />
-            <VBox fx:id="accountsBox" prefHeight="361.0" prefWidth="508.0" />
-            <Label fx:id="name_label" textAlignment="CENTER">
-               <padding>
-                  <Insets bottom="100.0" />
-               </padding>
-            </Label>
-         </children>
-      </VBox>
-      <Button fx:id="deleteAccount" minWidth="150.0" mnemonicParsing="false" onAction="#deleteAccount" text="Ta bort konto">
-         <GridPane.margin>
-            <Insets bottom="150.0" top="60.0" />
-         </GridPane.margin></Button>
-      <Label fx:id="warningLabel1" text="Du måste ha 0kr på ditt konto" visible="false">
-         <GridPane.margin>
-            <Insets bottom="40.0" />
-         </GridPane.margin>
-      </Label>
-      <Label fx:id="warningLabel2" text="Välj ett konto du vill ta bort" visible="false">
-         <GridPane.margin>
-            <Insets bottom="30.0" />
-         </GridPane.margin>
-      </Label>
-      <ComboBox fx:id="accountBoxDelete" prefWidth="150.0" promptText="Ta bort konto">
-         <GridPane.margin>
-            <Insets bottom="150.0" />
-         </GridPane.margin>
-      </ComboBox>
-      <ComboBox fx:id="accountBoxChange" prefWidth="150.0" promptText="Konton ">
-         <GridPane.margin>
-            <Insets top="100.0" />
-         </GridPane.margin>
-      </ComboBox>
-      <TextField fx:id="accountNameChange" maxWidth="150.0" prefHeight="27.0" prefWidth="100.0" promptText="Nytt namn på konto">
-         <GridPane.margin>
-            <Insets top="160.0" />
-         </GridPane.margin>
-      </TextField>
-      <Button maxWidth="150.0" mnemonicParsing="false" onAction="#changeAccountName" text="Byt namn">
-         <GridPane.margin>
-            <Insets top="220.0" />
-         </GridPane.margin>
-      </Button>
-   </children>
-</GridPane>
+<AnchorPane prefHeight="600" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.home.HomeController">
+
+    <children>
+        <VBox fx:id="accountsBox" layoutX="409.0" layoutY="156.0" prefHeight="256.0" prefWidth="357.0" />
+        <ComboBox fx:id="accountType" layoutX="67.0" layoutY="67.0" prefWidth="150.0" promptText="Konto typ" />
+        <TextField fx:id="accountName" layoutX="66.0" layoutY="94.0" prefWidth="150.0" promptText="Namn på konto" />
+        <Button fx:id="addAccountButton" layoutX="66.0" layoutY="121.0" mnemonicParsing="false" onAction="#addAccount" prefWidth="150.0" text="Lägg till konto" />
+        <Label fx:id="name_label" layoutX="300.0" layoutY="38.0" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+        <Button fx:id="deleteAccount" layoutX="66.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteAccount" prefWidth="150.0" text="Ta bort konto">
+        </Button>
+        <Label fx:id="warningLabel1" layoutX="51.0" layoutY="388.0" text="Du måste ha 0kr på ditt konto" visible="false" />
+        <Label fx:id="warningLabel2" layoutX="58.0" layoutY="388.0" text="Välj ett konto du vill ta bort" visible="false" />
+        <ComboBox fx:id="accountBoxDelete" layoutX="66.0" layoutY="334.0" prefWidth="150.0" promptText="Ta bort konto" />
+        <ComboBox fx:id="accountBoxChange" layoutX="66.0" layoutY="204.0" prefWidth="150.0" promptText="Konton " />
+        <TextField fx:id="accountNameChange" layoutX="66.0" layoutY="231.0" prefWidth="150.0" promptText="Nytt namn på konto" />
+        <Button layoutX="66.0" layoutY="258.0" mnemonicParsing="false" onAction="#changeAccountName" prefWidth="150.0" text="Byt namn" />
+      <ComboBox fx:id="pickAccount" layoutX="66.0" layoutY="434.0" prefWidth="150.0" promptText="Konton" />
+      <ComboBox fx:id="toType" layoutX="66.0" layoutY="461.0" prefWidth="150.0" promptText="Ändra till typ" />
+      <Button layoutX="66.0" layoutY="488.0" mnemonicParsing="false" onAction="#changeAccountType" prefWidth="150.0" text="Ändra konto typ" />
+      <Label layoutX="65.0" layoutY="522.0" text="Du måste fylla i alla valen" />
+
+    </children>
+</AnchorPane>

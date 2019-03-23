@@ -7,7 +7,6 @@ import app.db.DB;
 import app.login.LoginController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -15,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -41,9 +39,11 @@ public class HomeController {
     @FXML
     ComboBox accountBoxChange;
     @FXML
-    Button changeAccountName;
-    @FXML
     TextField accountNameChange;
+    @FXML
+    ComboBox pickAccount;
+    @FXML
+    ComboBox toType;
 
     private Object Account;
 
@@ -59,6 +59,9 @@ public class HomeController {
         generateComboBox();
         accountBoxDelete.setValue("Ta bort konto");
         accountBoxChange.setValue("Konton");
+        toType.setValue("Ändra till typ");
+        pickAccount.setValue("Konton");
+        toType.getItems().addAll("Salary", "Savings", "Creditcard");
     }
 
     @FXML
@@ -71,7 +74,6 @@ public class HomeController {
             Button accountBtn = new Button("" + account.getAccountName());
             accountBtn.setMinSize(200, 40);
             accountsBox.getChildren().add(accountBtn);
-            accountsBox.setAlignment(Pos.TOP_RIGHT);
             accountBtn.setOnAction(event -> {
                 try {
                     goToAccount(account.getNumber());
@@ -129,11 +131,33 @@ public class HomeController {
             System.out.println("Välj ett konto du vill uppdatera");
         }
     }
+    @FXML
+    void changeAccountType() {
+        System.out.println(pickAccount.getValue().toString());
+        System.out.println(toType.getValue().toString());
+        if (!pickAccount.getValue().toString().equals("Konton")){
+            String numberr = pickAccount.getValue().toString();
+            System.out.println(numberr);
+            if (!toType.getValue().toString().equals("Ändra till typ")){
+            numberr = numberr.substring(numberr.length() - 8);
+            long number = Long.parseLong(numberr);
+                System.out.println("nu kan man byta" + number);
+                DB.changeType(toType.getValue().toString(), number);
+                generateComboBox();
+            } else {
+                System.out.println("du måste fylla i andra lådan");
+            }
+        } else {
+            System.out.println("du måste fylla i första lådan");
+        }
+
+    }
 
     @FXML
     void generateComboBox() {
         accountBoxChange.getItems().clear();
         accountBoxDelete.getItems().clear();
+        pickAccount.getItems().clear();
         userAccounts = (List<Account>) DB.getAccounts(LoginController.getUser().getSocial_number());
         userAccounts.forEach(account -> {
             Account = account;
@@ -145,6 +169,11 @@ public class HomeController {
             Account = account;
             accountBoxChange.getItems().addAll(account.getAccountName());
             System.out.println(account.getName());
+        });
+
+        userAccounts.forEach(account -> {
+            Account = account;
+            pickAccount.getItems().addAll(account.getAccountNameAndType());
         });
     }
 

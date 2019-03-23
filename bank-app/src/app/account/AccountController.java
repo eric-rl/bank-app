@@ -30,6 +30,8 @@ public class AccountController {
     @FXML
     Button pay;
     List<Transaction> transactions;
+    @FXML
+    Label saldo;
 
     @FXML
     private void initialize() {
@@ -37,6 +39,13 @@ public class AccountController {
         Platform.runLater(() -> transactions = (List<Transaction>) DB.getTransactions(account.getNumber()));
         Platform.runLater(() -> generateTransactions());
         Platform.runLater(() -> generateCardPaymentButton());
+        Platform.runLater(() -> generateSalaryButton());
+        Platform.runLater(() -> generateBalance());
+    }
+
+    @FXML
+    public void generateBalance() {
+        saldo.setText("Saldot på " + account.getName() + " är: " + account.getBalanceString());
     }
 
 
@@ -47,6 +56,9 @@ public class AccountController {
 
     public void cardPayment() {
         DB.moveMoney("Creditcard", account.getNumber(), 99999999, 200);
+        System.out.println("Betala med kort");
+        transactionBox.getChildren().clear();
+        generateTransactions();
     }
 
     public void setSalaryIncome() {
@@ -60,9 +72,9 @@ public class AccountController {
             Transaction = transaction;
             Label transactionLabel = new Label(
                     "Summa: " + ((Transaction) Transaction).amountToString() +
-                        " Avsändare: " + ((Transaction) Transaction).senderToString() +
-                          " Mottagare: " + ((Transaction) Transaction).receiverTostring() +
-                        " Meddelande: " + ((Transaction) Transaction).messageToString());
+                            " Avsändare: " + ((Transaction) Transaction).senderToString() +
+                            " Mottagare: " + ((Transaction) Transaction).receiverTostring() +
+                            " Meddelande: " + ((Transaction) Transaction).messageToString());
 
             transactionLabel.setMinSize(100, 20);
             transactionBox.getChildren().add(transactionLabel);
@@ -85,31 +97,37 @@ public class AccountController {
     void generateCardPaymentButton() {
         if (account.getType().equals("Creditcard")) {
             cardPayment.setVisible(true);
-        } else if (account.getType().equals("Salary")) {
-            salaryIncome.setVisible(true);
         } else {
             cardPayment.setVisible(false);
+        }
+    }
+
+    @FXML
+    void generateSalaryButton() {
+        if (account.getType().equals("Salary")) {
+            salaryIncome.setVisible(true);
+        } else {
             salaryIncome.setVisible(false);
         }
     }
 
 
-    public void goToTransactionController() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/transaction/transaction.fxml"));
-            Parent fxmlInstance = loader.load();
-            Scene scene = new Scene(fxmlInstance, 800, 600);
-            TransactionController transactionController = loader.getController();
-            transactionController.setThisAccount(account.getNumber());
-            Main.stage.setScene(scene);
-            Main.stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        public void goToTransactionController () {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/transaction/transaction.fxml"));
+                Parent fxmlInstance = loader.load();
+                Scene scene = new Scene(fxmlInstance, 800, 600);
+                TransactionController transactionController = loader.getController();
+                transactionController.setThisAccount(account.getNumber());
+                Main.stage.setScene(scene);
+                Main.stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void setAccount ( long number){
+            account = DB.getAccount(number);
         }
     }
-
-    public void setAccount(long number) {
-        account = DB.getAccount(number);
-    }
-}
 

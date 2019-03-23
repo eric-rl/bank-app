@@ -51,4 +51,12 @@ public class Account {
     public String getAccountName() {
         return name + " " + number;
     }
+
+    public String getAccountNameAndType() {
+        return name + " " + "(" + type + ") " + number;
+    }
+
+    public String getBalanceString() {
+        return balance + "";
+    }
 }

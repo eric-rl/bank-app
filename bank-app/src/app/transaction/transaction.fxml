@@ -1,23 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.transaction.TransactionController">
+<AnchorPane prefHeight="600" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.transaction.TransactionController">
    <children>
-      <BorderPane maxHeight="600.0" maxWidth="800.0" />
-      <HBox spacing="60.0" />
-      <Button mnemonicParsing="false" onAction="#goToHomeController" text="Hem" />
-      <Button layoutX="125.0" mnemonicParsing="false" text="Gå tillbaka" />
-      <Button layoutX="52.0" layoutY="209.0" mnemonicParsing="false" onAction="#moveMoney" text="Skicka pengar" />
-      <TextField fx:id="receiverInput" layoutX="21.0" layoutY="46.0" promptText="Mottagare" />
-      <TextField fx:id="senderInput" editable="false" layoutX="21.0" layoutY="85.0" promptText="Avsändare" />
-      <TextField fx:id="messageInput" layoutX="21.0" layoutY="127.0" promptText="Meddelande" />
-      <TextField fx:id="amountInput" layoutX="21.0" layoutY="165.0" promptText="Summa" />
-      <ComboBox fx:id="accountsBox" layoutX="220.0" layoutY="46.0" onAction="#setReceiverWithComboBox" prefWidth="150.0" promptText="Dina konton" />
+      <Button layoutX="5.0" layoutY="17.0" minWidth="130.0" mnemonicParsing="false" onAction="#goToHomeController" text="Hem" />
+      <Button layoutX="79.0" layoutY="387.0" mnemonicParsing="false" onAction="#moveMoney" text="Skicka pengar" />
+      <TextField fx:id="receiverInput" layoutX="47.0" layoutY="189.0" promptText="Mottagare" />
+      <TextField fx:id="senderInput" editable="false" layoutX="47.0" layoutY="244.0" promptText="Avsändare" />
+      <TextField fx:id="messageInput" layoutX="47.0" layoutY="300.0" promptText="Meddelande" />
+      <TextField fx:id="amountInput" layoutX="47.0" layoutY="347.0" promptText="Summa" />
+      <ComboBox fx:id="accountsBox" layoutX="220.0" layoutY="189.0" onAction="#setReceiverWithComboBox" prefWidth="150.0" promptText="Dina konton" />
+      <Label layoutX="94.0" layoutY="134.0" text="Engångs överföring/betalning">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <DatePicker fx:id="startDateS" layoutX="488.0" layoutY="191.0" />
+      <DatePicker fx:id="endDateS" layoutX="488.0" layoutY="244.0" />
+      <TextField fx:id="ammountS" layoutX="427.0" layoutY="347.0" prefWidth="150.0" promptText="Summa" />
+      <TextField fx:id="messageS" layoutX="595.0" layoutY="347.0" prefWidth="150.0" promptText="Meddelande" />
+      <Label layoutX="488.0" layoutY="136.0" text="Schemalagd överföring">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="toAccountS" layoutX="595.0" layoutY="289.0" prefWidth="150.0" promptText="Till konto" />
+      <TextField fx:id="senderS" layoutX="504.0" layoutY="400.0" promptText="Avsändare" />
+      <Button fx:id="makePaymentS" layoutX="541.0" layoutY="448.0" mnemonicParsing="false" onAction="#scheduledMoveMoney" text="Gör överföring" />
+      <ChoiceBox fx:id="intervallS" layoutX="427.0" layoutY="289.0" prefWidth="150.0" />
+      <Label layoutX="551.0" layoutY="172.0" text="Startdatum" />
+      <Label layoutX="554.0" layoutY="220.0" text="Slutdatum" />
+      <Label layoutX="99.0" layoutY="172.0" text="Mottagare" />
+      <Label layoutX="99.0" layoutY="220.0" text="Avsändare" />
+      <Label layoutX="94.0" layoutY="281.0" text="Meddelande" />
+      <Label layoutX="108.0" layoutY="327.0" text="Summa" />
+      <Label fx:id="warningOne" layoutX="52.0" layoutY="427.0" text="Du måste fylla i alla fälten" visible="false" />
+      <Label fx:id="succsessOne" layoutX="83.0" layoutY="427.0" text="Lyckad överföring!" visible="false" />
+      <Line endX="200.0" layoutX="400.0" layoutY="300.0" rotate="90.0" startX="-200.0" />
    </children>
 </AnchorPane>

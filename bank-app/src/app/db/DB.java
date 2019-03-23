@@ -8,6 +8,7 @@ import com.mysql.cj.protocol.Resultset;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,12 +69,38 @@ public abstract class DB {
         return accounts;
     }
 
+    public static void changeType(String type, long number) {
+        PreparedStatement ps = prep("UPDATE account SET type = ? WHERE number = ?");
+        try{
+            ps.setString(1, type);
+            ps.setLong(2, number);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void addAccount(String name, String type, String owner){
         PreparedStatement ps = prep("INSERT INTO account SET name = ?, type = ?, owner = ?");
         try {
             ps.setString(1, name);
             ps.setString(2, type);
             ps.setString(3, owner);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addToScheduled(Timestamp date, String message, long sender, long receiver, float amount) {
+        PreparedStatement ps = prep("INSERT INTO scheduled_transaction SET date = ?, message = ?, " +
+                "sender = ?, receiver = ?, amount = ?");
+        try {
+            ps.setTimestamp(1, date);
+            ps.setString(2, message);
+            ps.setLong(3, sender);
+            ps.setLong(4, receiver);
+            ps.setFloat(5, amount);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,7 +147,7 @@ public abstract class DB {
     public static List<?> getTransactions(long accountId, int offset){ return getTransactions(accountId, offset, offset + 10); }
     public static List<?> getTransactions(long accountId, int offset, int limit){
         List<?> result = null;
-        PreparedStatement ps = prep("SELECT * FROM transaction WHERE sender = ? OR receiver = ? LIMIT ? OFFSET ?");
+        PreparedStatement ps = prep("SELECT * FROM transaction WHERE sender = ? OR receiver = ? ORDER BY `date` DESC LIMIT ? OFFSET ?");
         try {
             ps.setLong(1, accountId);
             ps.setLong(2, accountId);
