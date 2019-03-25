@@ -9,6 +9,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +72,7 @@ public abstract class DB {
 
     public static void changeType(String type, long number) {
         PreparedStatement ps = prep("UPDATE account SET type = ? WHERE number = ?");
-        try{
+        try {
             ps.setString(1, type);
             ps.setLong(2, number);
             ps.execute();
@@ -80,27 +81,12 @@ public abstract class DB {
         }
     }
 
-    public static void addAccount(String name, String type, String owner){
+    public static void addAccount(String name, String type, String owner) {
         PreparedStatement ps = prep("INSERT INTO account SET name = ?, type = ?, owner = ?");
         try {
             ps.setString(1, name);
             ps.setString(2, type);
             ps.setString(3, owner);
-            ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void addToScheduled(Timestamp date, String message, long sender, long receiver, float amount) {
-        PreparedStatement ps = prep("INSERT INTO scheduled_transaction SET date = ?, message = ?, " +
-                "sender = ?, receiver = ?, amount = ?");
-        try {
-            ps.setTimestamp(1, date);
-            ps.setString(2, message);
-            ps.setLong(3, sender);
-            ps.setLong(4, receiver);
-            ps.setFloat(5, amount);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,7 +107,7 @@ public abstract class DB {
         PreparedStatement ps = prep("UPDATE account SET name = ? WHERE number = ?");
         try {
             ps.setString(1, name);
-            ps.setLong(2,number);
+            ps.setLong(2, number);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -143,9 +129,15 @@ public abstract class DB {
     }
 
 
-    public static List<?> getTransactions(long accountId){ return getTransactions(accountId, 0, 10); }
-    public static List<?> getTransactions(long accountId, int offset){ return getTransactions(accountId, offset, offset + 10); }
-    public static List<?> getTransactions(long accountId, int offset, int limit){
+    public static List<?> getTransactions(long accountId) {
+        return getTransactions(accountId, 0, 10);
+    }
+
+    public static List<?> getTransactions(long accountId, int offset) {
+        return getTransactions(accountId, offset, offset + 10);
+    }
+
+    public static List<?> getTransactions(long accountId, int offset, int limit) {
         List<?> result = null;
         PreparedStatement ps = prep("SELECT * FROM transaction WHERE sender = ? OR receiver = ? ORDER BY `date` DESC LIMIT ? OFFSET ?");
         try {
@@ -154,7 +146,9 @@ public abstract class DB {
             ps.setInt(3, limit);
             ps.setInt(4, offset);
             result = new ObjectMapper<>(Transaction.class).map(ps.executeQuery());
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result; // return User;
     }
 
@@ -172,6 +166,20 @@ public abstract class DB {
         }
     }
 
+    public static void addToScheduled(String eventName, String date, String message, long sender, long receiver, float amount) {
+        PreparedStatement ps = prep("CREATE EVENT "+eventName+" ON SCHEDULE "+date+" DO CALL " +
+                "create_transaction(?,?,?,?) ");
+        try {
+            ps.setString(1, message);
+            ps.setLong(2, sender);
+            ps.setLong(3, receiver);
+            ps.setFloat(4, amount);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void insertAccountIntoSalary(long receiverAccount) {
         PreparedStatement ps = prep("INSERT INTO accounts_getting_salary SET number = ?");
         try {
@@ -181,8 +189,6 @@ public abstract class DB {
             e.printStackTrace();
         }
     }
-
-
 
 
 }

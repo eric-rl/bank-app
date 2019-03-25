@@ -11,7 +11,10 @@
    <children>
       <ScrollPane layoutX="141.0" layoutY="134.0" prefHeight="441.0" prefWidth="645.0">
          <content>
-            <VBox fx:id="transactionBox" maxHeight="600.0" />
+            <VBox fx:id="transactionBox" maxHeight="600.0">
+               <children>
+               </children>
+            </VBox>
          </content>
       </ScrollPane>
       <Button fx:id="goToHomeButton" layoutX="5.0" layoutY="17.0" minWidth="130.0" mnemonicParsing="false" onAction="#goToHomeController" text="Hem" />
@@ -24,5 +27,9 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <Label layoutX="141.0" layoutY="108.0" text="Summa" />
+      <Label layoutX="239.0" layoutY="108.0" text="Avsändare" />
+      <Label layoutX="351.0" layoutY="108.0" text="Mottagare" />
+      <Label layoutX="464.0" layoutY="108.0" text="Meddelande" />
    </children>
 </AnchorPane>

@@ -12,9 +12,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AccountController {
@@ -63,21 +65,33 @@ public class AccountController {
 
     public void setSalaryIncome() {
         System.out.println("Klickad");
-        DB.insertAccountIntoSalary(account.getNumber());
+        String name = account.getName() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("mmssms"));
+        System.out.println(name);
+
+        DB.addToScheduled(name, "EVERY 1 MONTH\n" +
+                "STARTS CURRENT_TIMESTAMP\n" +
+                "ENDS CURRENT_TIMESTAMP + INTERVAL 1 YEAR", "Lön från din arbetsgivare", 99999999, account.getNumber(), 200);
     }
 
     void generateTransactions() {
         transactionBox.getChildren().clear();
         transactions.forEach(transaction -> {
+            HBox transactionHbox = new HBox();
+            Label amount = new Label(transaction.amountToString());
+            Label sender = new Label(transaction.senderToString());
+            Label receiver = new Label(transaction.receiverTostring());
+            Label message = new Label(transaction.messageToString());
+            transactionHbox.getChildren().addAll(amount, sender, receiver, message);
             Transaction = transaction;
-            Label transactionLabel = new Label(
-                    "Summa: " + ((Transaction) Transaction).amountToString() +
-                            " Avsändare: " + ((Transaction) Transaction).senderToString() +
-                            " Mottagare: " + ((Transaction) Transaction).receiverTostring() +
-                            " Meddelande: " + ((Transaction) Transaction).messageToString());
-
-            transactionLabel.setMinSize(100, 20);
-            transactionBox.getChildren().add(transactionLabel);
+            transactionBox.getChildren().addAll(transactionHbox);
+            amount.setMinWidth(100);
+            sender.setMinWidth(100);
+            receiver.setMinWidth(100);
+            message.setMinWidth(100);
+            if (transaction.getSender() == account.getNumber()){
+                amount.setText("- " + transaction.amountToString());
+                transactionHbox.setStyle("-fx-background-color: red");
+            }
         });
     }
 

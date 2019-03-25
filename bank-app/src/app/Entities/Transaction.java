@@ -24,6 +24,10 @@ public class Transaction {
     public float getAmount() { return amount; }
     public Timestamp getDate() { return date; }
 
+    public long getSender() {
+        return sender;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
