@@ -52,6 +52,7 @@ public class TransactionController {
     CheckBox ocrORmessageButton;
 
 
+
     private Object Account;
     Account thisAccount;
     List<Account> userAccounts = null;
@@ -99,7 +100,7 @@ public class TransactionController {
     @FXML
     void setReceiverWithComboBox() {
         String number = accountsBox.getValue().toString();
-        receiverInput.setText(number.substring(number.length() - 8));
+        receiverInput.setText(number.substring(number.length() - 9));
     }
 
     @FXML

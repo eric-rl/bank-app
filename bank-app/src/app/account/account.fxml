@@ -31,5 +31,7 @@
       <Label layoutX="239.0" layoutY="108.0" text="Avsändare" />
       <Label layoutX="351.0" layoutY="108.0" text="Mottagare" />
       <Label layoutX="464.0" layoutY="108.0" text="Meddelande" />
+      <Label layoutX="705.0" layoutY="108.0" text="Datum" />
+      <Label fx:id="salarySuccsess" layoutX="5.0" layoutY="204.0" prefHeight="55.0" prefWidth="130.0" text="Nu får du 20 000 kr i månaden i ett år" visible="false" wrapText="true" />
    </children>
 </AnchorPane>

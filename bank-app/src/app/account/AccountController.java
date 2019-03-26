@@ -34,6 +34,8 @@ public class AccountController {
     List<Transaction> transactions;
     @FXML
     Label saldo;
+    @FXML
+    Label salarySuccsess;
 
     @FXML
     private void initialize() {
@@ -43,6 +45,7 @@ public class AccountController {
         Platform.runLater(() -> generateCardPaymentButton());
         Platform.runLater(() -> generateSalaryButton());
         Platform.runLater(() -> generateBalance());
+        salarySuccsess.setVisible(false);
     }
 
     @FXML
@@ -57,7 +60,7 @@ public class AccountController {
     }
 
     public void cardPayment() {
-        DB.moveMoney("Creditcard", account.getNumber(), 99999999, 200);
+        DB.moveMoney("Creditcard", account.getNumber(), 100000000, 200);
         System.out.println("Betala med kort");
         transactionBox.getChildren().clear();
         generateTransactions();
@@ -67,10 +70,11 @@ public class AccountController {
         System.out.println("Klickad");
         String name = account.getName() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("mmssms"));
         System.out.println(name);
+        salarySuccsess.setVisible(true);
 
         DB.addToScheduled(name, "EVERY 1 MONTH\n" +
                 "STARTS CURRENT_TIMESTAMP\n" +
-                "ENDS CURRENT_TIMESTAMP + INTERVAL 1 YEAR", "Lön från din arbetsgivare", 99999999, account.getNumber(), 200);
+                "ENDS CURRENT_TIMESTAMP + INTERVAL 1 YEAR", "Lön från din arbetsgivare", 100000001, account.getNumber(), 200);
     }
 
     void generateTransactions() {
@@ -81,13 +85,15 @@ public class AccountController {
             Label sender = new Label(transaction.senderToString());
             Label receiver = new Label(transaction.receiverTostring());
             Label message = new Label(transaction.messageToString());
-            transactionHbox.getChildren().addAll(amount, sender, receiver, message);
+
+            Label date = new Label(transaction.getDate().toString().substring(0,10));
+            transactionHbox.getChildren().addAll(amount, sender, receiver, message, date);
             Transaction = transaction;
             transactionBox.getChildren().addAll(transactionHbox);
             amount.setMinWidth(100);
             sender.setMinWidth(100);
             receiver.setMinWidth(100);
-            message.setMinWidth(100);
+            message.setMinWidth(250);
             if (transaction.getSender() == account.getNumber()){
                 amount.setText("- " + transaction.amountToString());
                 transactionHbox.setStyle("-fx-background-color: red");
@@ -139,7 +145,6 @@ public class AccountController {
                 e.printStackTrace();
             }
         }
-
         public void setAccount ( long number){
             account = DB.getAccount(number);
         }

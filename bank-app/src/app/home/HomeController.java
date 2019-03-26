@@ -57,6 +57,7 @@ public class HomeController {
     Label addAccountWarning;
 
 
+
     private Object Account;
 
     public
@@ -74,6 +75,7 @@ public class HomeController {
         pickAccount.setValue("Konton");
         toType.getItems().addAll("Salary", "Savings", "Creditcard");
         accountType.setValue("Konto typ");
+
     }
 
     @FXML
@@ -138,7 +140,7 @@ public class HomeController {
         if (!accountBoxDelete.getValue().toString().equals("Ta bort konto")) {
             warningLabel2.setVisible(false);
             String number = accountBoxDelete.getValue().toString();
-            number = number.substring(number.length() - 8);
+            number = number.substring(number.length() - 9);
             long numberr = Long.parseLong(number);
             Account account = DB.getAccount(numberr);
             System.out.println("klara");
@@ -161,7 +163,7 @@ public class HomeController {
         if (!accountBoxChange.getValue().toString().equals("Konton")) {
             changeNameWarning.setVisible(false);
             String number = accountBoxChange.getValue().toString();
-            number = number.substring(number.length() - 8);
+            number = number.substring(number.length() - 9);
             long numberr = Long.parseLong(number);
             if (!accountNameChange.getText().equals("")) {
                 System.out.println("NU kan man byta");
@@ -184,7 +186,7 @@ public class HomeController {
             String numberr = pickAccount.getValue().toString();
             if (!toType.getValue().toString().equals("Ändra till typ")) {
                 changeTypeWarning.setVisible(false);
-                numberr = numberr.substring(numberr.length() - 8);
+                numberr = numberr.substring(numberr.length() - 9);
                 long number = Long.parseLong(numberr);
                 DB.changeType(toType.getValue().toString(), number);
                 generateComboBox();

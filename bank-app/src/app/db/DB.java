@@ -4,12 +4,9 @@ import app.Entities.Account;
 import app.Entities.Transaction;
 import app.Entities.User;
 import com.mysql.cj.protocol.Resultset;
-
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,27 +17,6 @@ import java.util.Map;
 public abstract class DB {
     Map<String, Account> accounts = new HashMap<>();
     Resultset resultSet = null;
-
-//    List<User> getUsers(String social_number, String password) {
-//        List<User> result = new ArrayList<>();
-//        PreparedStatement ps = prep("SELECT * FROM user WHERE social_number = ? AND password = ?");
-//        try {
-//            ps.setString(1, social_number);
-//            ps.setString(2, password);
-//
-//            resultSet = ps.executeQuery();
-//
-//            while (resultSet.next()) {
-//                result.add(new User(
-//                        resultSet
-//                ));
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
 
     public static PreparedStatement prep(String SQLQuery) {
         return Database.getInstance().prepareStatement(SQLQuery);
@@ -179,16 +155,4 @@ public abstract class DB {
             e.printStackTrace();
         }
     }
-
-    public static void insertAccountIntoSalary(long receiverAccount) {
-        PreparedStatement ps = prep("INSERT INTO accounts_getting_salary SET number = ?");
-        try {
-            ps.setLong(1, receiverAccount);
-            ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }
