@@ -61,15 +61,12 @@ public class AccountController {
 
     public void cardPayment() {
         DB.moveMoney("Creditcard", account.getNumber(), 100000000, 200);
-        System.out.println("Betala med kort");
         transactionBox.getChildren().clear();
         generateTransactions();
     }
 
     public void setSalaryIncome() {
-        System.out.println("Klickad");
-        String name = account.getName() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("mmssms"));
-        System.out.println(name);
+        String name = "Salary" + account.getName() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("mmssms"));
         salarySuccsess.setVisible(true);
 
         DB.addToScheduled(name, "EVERY 1 MONTH\n" +

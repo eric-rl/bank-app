@@ -10,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -62,13 +61,10 @@ public class TransactionController {
     @FXML
     private void initialize() {
         System.out.println("initialize transaction");
-
         Platform.runLater(() -> generateComboBox());
         intervallS.getItems().addAll("ONCE", "MINUTE", "HOUR", "DAY", "MONTH", "YEAR");
         Platform.runLater(() -> thisAccountLabel.setText("Överförningar från " + thisAccount.getAccountName()));
         Platform.runLater(() -> thisAccountLabel.setAlignment(Pos.TOP_CENTER));
-
-
     }
 
     public void goToHomeController() {
@@ -135,7 +131,6 @@ public class TransactionController {
             String dateBuilder = "EVERY 1 " + intervallS.getValue() + " STARTS " + "'" + startDate.toString().substring(0, 19) + "'" + " ENDS " + "'" + endDate.toString().substring(0, 19) + "'";
             DB.addToScheduled(name, dateBuilder, message, sender, receiver, amount);
             scheduledSuccsess.setVisible(true);
-            System.out.println("I flera");
 
 
         } else if (intervallS.getValue().equals("ONCE") &&
@@ -157,7 +152,6 @@ public class TransactionController {
             String dateBuilder = "AT " + "'" + startDate.toString().substring(0, 19) + "'";
             DB.addToScheduled(name, dateBuilder, message, sender, receiver, amount);
             scheduledSuccsess.setVisible(true);
-            System.out.println("I en");
         } else {
             scheduleWarning.setVisible(true);
         }
