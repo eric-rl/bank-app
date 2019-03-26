@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.xml.crypto.Data;
 
 public class Main extends Application {
     public static Stage stage;
@@ -16,8 +15,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Database.getInstance();
         stage = primaryStage;
-        // First FXML that should be displayed is the Login
-        // after successful login you should get transferred to Home
         Parent root = FXMLLoader.load(getClass().getResource("/app/login/login.fxml"));
         primaryStage.setTitle("Bank app");
         primaryStage.setScene(new Scene(root, 800, 600));

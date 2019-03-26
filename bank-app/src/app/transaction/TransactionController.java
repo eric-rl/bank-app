@@ -52,6 +52,8 @@ public class TransactionController {
     CheckBox ocrORmessageButton;
     @FXML
     Label scheduledSuccsess;
+    @FXML
+    Label amountLabel;
 
 
     private Object Account;
@@ -64,6 +66,7 @@ public class TransactionController {
         Platform.runLater(() -> generateComboBox());
         intervallS.getItems().addAll("ONCE", "MINUTE", "HOUR", "DAY", "MONTH", "YEAR");
         Platform.runLater(() -> thisAccountLabel.setText("Överförningar från " + thisAccount.getAccountName()));
+        Platform.runLater(()-> amountLabel.setText("Saldo: " + thisAccount.getBalance()));
         Platform.runLater(() -> thisAccountLabel.setAlignment(Pos.TOP_CENTER));
     }
 
@@ -111,6 +114,7 @@ public class TransactionController {
             scheduledSuccsess.setVisible(false);
         } else if (
                 endDateS.getValue() != null &&
+                        !intervallS.getValue().equals("ONCE") &&
                         !toAccountS.getText().equals("") &&
                         !ammountS.getText().equals("") &&
                         !messageS.getText().equals("") &&

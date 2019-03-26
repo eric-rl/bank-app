@@ -44,7 +44,7 @@
       <Label fx:id="succsessOne" layoutX="83.0" layoutY="367.0" text="Lyckad överföring!" visible="false" />
       <Line endX="200.0" layoutX="400.0" layoutY="300.0" rotate="90.0" startX="-200.0" />
       <Label fx:id="scheduleWarning" layoutX="488.0" layoutY="484.0" text="Alla fälten måste vara korrekt i fyllt" visible="false" />
-      <Label fx:id="thisAccountLabel" alignment="CENTER" layoutX="19.0" layoutY="58.0" prefHeight="22.0" prefWidth="761.0" textAlignment="CENTER">
+      <Label fx:id="thisAccountLabel" alignment="CENTER" layoutX="19.0" layoutY="44.0" prefHeight="22.0" prefWidth="761.0" textAlignment="CENTER">
          <font>
             <Font size="17.0" />
          </font></Label>
@@ -55,5 +55,6 @@
       <Label fx:id="messageLabel" layoutX="628.0" layoutY="319.0" text="Meddelenade" />
       <Label fx:id="ocrLabel" layoutX="628.0" layoutY="319.0" text="OCR Nummer" visible="false" />
       <Label fx:id="scheduledSuccsess" layoutX="493.0" layoutY="484.0" text="Lyckad schemalagd överföring" visible="false" />
+      <Label fx:id="amountLabel" alignment="TOP_CENTER" layoutX="138.0" layoutY="83.0" prefHeight="17.0" prefWidth="523.0" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>

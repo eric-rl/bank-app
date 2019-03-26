@@ -61,7 +61,6 @@ public class AccountController {
 
     public void cardPayment() {
         DB.moveMoney("Creditcard", account.getNumber(), 100000000, 200);
-        transactionBox.getChildren().clear();
         generateTransactions();
     }
 

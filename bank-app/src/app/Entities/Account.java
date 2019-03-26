@@ -49,7 +49,7 @@ public class Account {
     }
 
     public String getAccountName() {
-        return name + " " + number + " Summa: " + balance;
+        return name + " " + number;
     }
 
     public String getAccountNameAndType() {
