@@ -85,7 +85,7 @@ public class HomeController {
         userAccounts.forEach(account -> {
             Account = account;
             Button accountBtn = new Button("" + account.getAccountName());
-            accountBtn.setMinSize(200, 40);
+            accountBtn.setMinSize(300, 40);
             accountsBox.getChildren().add(accountBtn);
             accountBtn.setOnAction(event -> {
                 try {

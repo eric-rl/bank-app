@@ -155,4 +155,18 @@ public abstract class DB {
             e.printStackTrace();
         }
     }
+
+    public static void addToScheduledOnce(String eventName, String date, String message, long sender, long receiver, float amount) {
+        PreparedStatement ps = prep("CREATE EVENT "+eventName+" ON SCHEDULE AT "+date+" DO CALL "+
+                "create_transaction(?,?,?,?) ");
+        try {
+            ps.setString(1, message);
+            ps.setLong(2, sender);
+            ps.setLong(3, receiver);
+            ps.setFloat(4, amount);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

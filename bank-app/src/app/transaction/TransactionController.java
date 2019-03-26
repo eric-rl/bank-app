@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -50,7 +51,8 @@ public class TransactionController {
     Label messageLabel;
     @FXML
     CheckBox ocrORmessageButton;
-
+    @FXML
+    Label scheduledSuccsess;
 
 
     private Object Account;
@@ -62,10 +64,9 @@ public class TransactionController {
         System.out.println("initialize transaction");
 
         Platform.runLater(() -> generateComboBox());
-        intervallS.getItems().addAll("ONCE", "MINUTE", "HOUR", "MONTH", "YEAR");
+        intervallS.getItems().addAll("ONCE", "MINUTE", "HOUR", "DAY", "MONTH", "YEAR");
         Platform.runLater(() -> thisAccountLabel.setText("Överförningar från " + thisAccount.getAccountName()));
         Platform.runLater(() -> thisAccountLabel.setAlignment(Pos.TOP_CENTER));
-
 
 
     }
@@ -88,9 +89,9 @@ public class TransactionController {
 
     @FXML
     void ocrORmessage() {
-        if (ocrORmessageButton.isSelected()){
-        messageLabel.setVisible(false);
-        ocrLabel.setVisible(true);
+        if (ocrORmessageButton.isSelected()) {
+            messageLabel.setVisible(false);
+            ocrLabel.setVisible(true);
         } else {
             messageLabel.setVisible(true);
             ocrLabel.setVisible(false);
@@ -105,29 +106,60 @@ public class TransactionController {
 
     @FXML
     void scheduledMoveMoney() {
-        if (intervallS.getValue() == null ||
+        if (
                 toAccountS.getText().equals("") ||
-                ammountS.getText().equals("") ||
-                messageS.getText().equals("") ||
-                startDateS.getValue().equals(null) ||
-                endDateS.getValue().equals(null) ||
-                !startDateS.getValue().isBefore(endDateS.getValue())) {
+                        ammountS.getText().equals("") ||
+                        messageS.getText().equals("") ||
+                        startDateS.getValue() == null ){
             scheduleWarning.setVisible(true);
-        } else {
+            scheduledSuccsess.setVisible(false);
+        } else if (
+                endDateS.getValue() != null &&
+                        !toAccountS.getText().equals("") &&
+                        !ammountS.getText().equals("") &&
+                        !messageS.getText().equals("") &&
+                        startDateS.getValue().isBefore(endDateS.getValue())) {
+
             scheduleWarning.setVisible(false);
-        String name = thisAccount.getName() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("mmssms"));
+            String name = thisAccount.getName() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("mmssms"));
 
-        Timestamp startDate = Timestamp.valueOf(startDateS.getValue().atTime(LocalTime.now()));
-        Timestamp endDate = Timestamp.valueOf(endDateS.getValue().atTime(LocalTime.now()));
+            Timestamp startDate = Timestamp.valueOf(startDateS.getValue().atTime(LocalTime.now()));
+            Timestamp endDate = Timestamp.valueOf(endDateS.getValue().atTime(LocalTime.now()));
 
-        long receiver = Integer.parseInt(toAccountS.getText());
-        long sender = thisAccount.getNumber();
-        float amount = Integer.parseInt(ammountS.getText());
-        String message = messageS.getText();
+            long receiver = Integer.parseInt(toAccountS.getText());
+            long sender = thisAccount.getNumber();
+            float amount = Float.parseFloat(ammountS.getText());
+            String message = messageS.getText();
 
-        String dateBuilder = "EVERY 1 " + intervallS.getValue() + " STARTS " + "'"+startDate.toString().substring(0,19)+"'" + " ENDS " + "'"+endDate.toString().substring(0,19)+"'";
-        System.out.println(dateBuilder);
-        DB.addToScheduled(name, dateBuilder, message, sender, receiver, amount);
+
+            String dateBuilder = "EVERY 1 " + intervallS.getValue() + " STARTS " + "'" + startDate.toString().substring(0, 19) + "'" + " ENDS " + "'" + endDate.toString().substring(0, 19) + "'";
+            DB.addToScheduled(name, dateBuilder, message, sender, receiver, amount);
+            scheduledSuccsess.setVisible(true);
+            System.out.println("I flera");
+
+
+        } else if (intervallS.getValue().equals("ONCE") &&
+                !toAccountS.getText().equals("") &&
+                !ammountS.getText().equals("") &&
+                !messageS.getText().equals("") &&
+                startDateS.getValue() != null) {
+            scheduleWarning.setVisible(false);
+            String name = thisAccount.getName() + LocalTime.now().format(DateTimeFormatter.ofPattern("mmssms"));
+
+            Timestamp startDate = Timestamp.valueOf(startDateS.getValue().atTime(LocalTime.now()));
+
+            long receiver = Integer.parseInt(toAccountS.getText());
+            long sender = thisAccount.getNumber();
+            float amount = Float.parseFloat(ammountS.getText());
+            String message = messageS.getText();
+
+
+            String dateBuilder = "AT " + "'" + startDate.toString().substring(0, 19) + "'";
+            DB.addToScheduled(name, dateBuilder, message, sender, receiver, amount);
+            scheduledSuccsess.setVisible(true);
+            System.out.println("I en");
+        } else {
+            scheduleWarning.setVisible(true);
         }
     }
 
@@ -143,7 +175,7 @@ public class TransactionController {
             String message = messageInput.getText();
             long sender = thisAccount.getNumber();
             long receiver = Integer.parseInt(receiverInput.getText());
-            float amount = Integer.parseInt(amountInput.getText());
+            float amount = Float.parseFloat(amountInput.getText());
             DB.moveMoney(message, sender, receiver, amount);
             succsessOne.setVisible(true);
         }

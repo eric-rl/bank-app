@@ -54,5 +54,6 @@
       <Label layoutX="479.0" layoutY="319.0" text="Summa" />
       <Label fx:id="messageLabel" layoutX="628.0" layoutY="319.0" text="Meddelenade" />
       <Label fx:id="ocrLabel" layoutX="628.0" layoutY="319.0" text="OCR Nummer" visible="false" />
+      <Label fx:id="scheduledSuccsess" layoutX="493.0" layoutY="484.0" text="Lyckad schemalagd överföring" visible="false" />
    </children>
 </AnchorPane>
